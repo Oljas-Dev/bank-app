@@ -6,6 +6,7 @@ import TransferMoney from "./components/pages/TransferMoney";
 import { SearchUserProvider } from "./context/searchContext";
 import SendToForm from "./components/pages/SendToForm";
 import { CurrentUser } from "./context/currentUser";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </CurrentUser>
+      <Toaster />
     </SearchUserProvider>
   );
 }

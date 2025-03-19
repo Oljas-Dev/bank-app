@@ -1,9 +1,9 @@
+import { useCurrentUser } from "../../../context/currentUser";
 import Modal from "../Modal";
 import Details from "./Details";
-import { user1 } from "../../../tempUserObjects/UserObjects";
 
 export default function TransactionsBoard() {
-  const { transactions } = user1;
+  const { user } = useCurrentUser();
 
   return (
     <Modal.Window
@@ -11,14 +11,18 @@ export default function TransactionsBoard() {
       btnName="check all"
       classes="info__module grid"
     >
-      {transactions.map((t) => (
-        <Details
-          key={t.userId}
-          img={{ src: t.img, alt: t.sentTo }}
-          date={t.date}
-          sum={t.amount}
-        />
-      ))}
+      {user!.transactions!.length < 1 ? (
+        <p>There are no transactions to show</p>
+      ) : (
+        user?.transactions?.map((t) => (
+          <Details
+            key={t.id}
+            img={{ src: t.img, alt: t.sendTo }}
+            date={t.date}
+            sum={t.amount}
+          />
+        ))
+      )}
       <div className="txt-right cursor">SORT ⬇️</div>
     </Modal.Window>
   );

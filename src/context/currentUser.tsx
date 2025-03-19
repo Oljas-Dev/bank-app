@@ -64,9 +64,11 @@ export function CurrentUser({ children }: reactChildren) {
   const firstName = user?.name.split(" ")[0];
 
   const updatedBalance =
-    user?.transactions
-      ?.map((el) => el.amount)
-      .reduce((acc, curr) => acc + curr) + user.balance;
+    user.transactions.length > 0
+      ? user?.transactions
+          ?.map((el) => el.amount)
+          .reduce((acc, curr) => acc + curr) + user.balance
+      : user.balance;
 
   return (
     <currentUserContext.Provider value={{ user, updatedBalance, firstName }}>
