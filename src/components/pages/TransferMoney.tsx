@@ -13,7 +13,9 @@ export default function TransferMoney() {
 
   return (
     <>
-      <Nav.Transfer />
+      <Nav>
+        <Nav.Transfer />
+      </Nav>
       <ModalsContainer>
         <Modal.Window
           windowName="Favourite"

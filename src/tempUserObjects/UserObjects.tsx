@@ -49,6 +49,7 @@ const user1 = {
       type: "loan",
     },
   ],
+  balance: 18500,
   id: 1001,
 };
 
@@ -62,6 +63,7 @@ function createRandomUser() {
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
     transactions: [],
+    balance: 10000,
     id: simpleFaker.string.uuid(),
   };
 }

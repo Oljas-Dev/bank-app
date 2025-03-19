@@ -19,5 +19,15 @@ export interface UserData {
   email?: string;
   avatar?: string;
   transactions?: Movements[];
+  balance?: number;
   id?: string;
+}
+
+export interface TransferUiProps {
+  form: boolean;
+  setForm: () => void;
+}
+
+export interface SendingProps {
+  user?: UserData;
 }

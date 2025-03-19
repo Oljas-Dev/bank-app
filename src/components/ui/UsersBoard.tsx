@@ -17,9 +17,9 @@ export default function UsersBoard({ obj, link }: usersObj) {
     );
 
   return (
-    <div className="fl-btw">
+    <div className="flex txt-center mg-top1">
       <Icons src={obj?.avatar} alt={obj?.name} classes="avatar" />
-      <p>{obj?.name}</p>
+      <p className="link__board">{obj?.name}</p>
     </div>
   );
 }
