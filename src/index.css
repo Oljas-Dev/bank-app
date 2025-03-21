@@ -417,14 +417,20 @@ p {
 .positive {
   border: 2px solid var(--color-pos);
 }
+.positive__bg {
+  background-color: var(--color-pos);
+}
 .positive__text {
   color: var(--color-pos);
 }
 .negative {
   border: 2px solid var(--color-neg);
 }
+.negative__bg {
+  background-color: var(--color-neg);
+}
 .negative__text {
-  color: var(--color-neg);
+  color: var(--color-neg) !important;
 }
 
 /* Text */

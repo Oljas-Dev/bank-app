@@ -5,13 +5,14 @@ export interface ImageData {
   fn?: () => void;
 }
 
-type Movements = {
-  type: string;
-  amount: number;
-  sendTo: string;
-  id: string;
-  img: string;
-  date: string;
+export type Movements = {
+  type?: string;
+  amount?: number;
+  sendTo?: string;
+  id?: string;
+  img?: string;
+  message?: string;
+  date?: string;
 };
 
 export interface UserData {

@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
 import { reactChildren } from "../types/children";
-import { UserData } from "../types/interfaces";
+import { Movements, UserData } from "../types/interfaces";
 import user1Avatar from "../../public/users/user_1.png";
 import user2Avatar from "../../public/users/user_2.png";
 import user3Avatar from "../../public/users/user_3.png";
@@ -12,6 +12,7 @@ interface CurrentUserProps {
   user?: UserData;
   updatedBalance: number;
   firstName: string;
+  onSend: (obj: Movements) => void;
 }
 
 const currentUserContext = createContext<CurrentUserProps>(
@@ -25,35 +26,39 @@ export function CurrentUser({ children }: reactChildren) {
     avatar: user1Avatar,
     transactions: [
       {
-        type: "",
+        type: "sending",
         amount: -5000,
         sendTo: "Kate Cooper",
         id: "1002",
         img: user2Avatar,
+        message: "",
         date: "today",
       },
       {
-        type: "",
+        type: "sending",
         amount: -1000,
         sendTo: "Michael Rogers",
         id: "1003",
         img: user3Avatar,
+        message: "",
         date: "31/01/2025",
       },
       {
-        type: "deposit",
+        type: "receiving",
         amount: 10000,
         sendTo: "",
         id: "1100",
         img: depo,
+        message: "",
         date: "15/01/2025",
       },
       {
-        type: "loan",
+        type: "receiving",
         amount: 10000,
         sendTo: "",
         id: "1200",
         img: loan,
+        message: "",
         date: "10/01/2025",
       },
     ],
@@ -70,8 +75,14 @@ export function CurrentUser({ children }: reactChildren) {
           .reduce((acc, curr) => acc + curr) + user.balance
       : user.balance;
 
+  function onSend(obj: Movements) {
+    user.transactions.push(obj);
+  }
+
   return (
-    <currentUserContext.Provider value={{ user, updatedBalance, firstName }}>
+    <currentUserContext.Provider
+      value={{ user, updatedBalance, firstName, onSend }}
+    >
       {children}
     </currentUserContext.Provider>
   );

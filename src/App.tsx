@@ -7,6 +7,7 @@ import { SearchUserProvider } from "./context/searchContext";
 import SendToForm from "./components/pages/SendToForm";
 import { CurrentUser } from "./context/currentUser";
 import { Toaster } from "react-hot-toast";
+import { TransactionsProvider } from "./context/transactionsContext";
 
 function App() {
   return (
@@ -17,7 +18,14 @@ function App() {
             <Route element={<Container />}>
               <Route path="home" element={<HomePage />} />
               <Route path="newtransaction" element={<TransferMoney />} />
-              <Route path="newtransaction/:userId" element={<SendToForm />} />
+              <Route
+                path="newtransaction/:userId"
+                element={
+                  <TransactionsProvider>
+                    <SendToForm />
+                  </TransactionsProvider>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>

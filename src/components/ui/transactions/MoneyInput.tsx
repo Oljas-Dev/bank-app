@@ -1,22 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCurrentUser } from "../../../context/currentUser";
-import toast from "react-hot-toast";
+import { useTransactions } from "../../../context/transactionsContext";
 
 export default function MoneyInput() {
   const [newBalance, setNewBalance] = useState(0);
   const { updatedBalance } = useCurrentUser();
+  const { inputError, setInputError, setInputValid, setSending } =
+    useTransactions();
 
   function handleChange(e: number) {
-    if (newBalance < 0) toast("Not enough money to proceed!");
-
-    setNewBalance(updatedBalance - e);
-    console.log(newBalance);
+    if (e > 0) {
+      setInputValid(true);
+      setNewBalance(updatedBalance - e);
+      setSending(e);
+    } else {
+      setInputValid(false);
+      setNewBalance(updatedBalance);
+      setSending(0);
+    }
   }
+
+  useEffect(() => {
+    if (newBalance < 0) {
+      setInputError(true);
+    } else {
+      setInputError(false);
+    }
+  }, [newBalance, setInputError]);
 
   return (
     <div className="money-input mg-minus">
-      <label htmlFor="amount">
-        Current balance {newBalance > 0 ? newBalance : updatedBalance} €
+      <label htmlFor="amount" className={inputError ? "negative__text" : ""}>
+        {inputError
+          ? "Insufficient money to proceed"
+          : `Balance left ${newBalance > 0 ? newBalance : updatedBalance} €`}
       </label>
       <input
         id="amount"
