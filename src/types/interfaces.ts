@@ -6,22 +6,21 @@ export interface ImageData {
 }
 
 export type Movements = {
-  type?: string;
-  amount?: number;
-  sendTo?: string;
-  id?: string;
-  img?: string;
-  message?: string;
-  date?: string;
+  type: string;
+  amount: number;
+  sendTo: string;
+  id: string;
+  img: string;
+  message: string;
+  date: string;
 };
 
 export interface UserData {
-  name?: string;
-  email?: string;
-  avatar?: string;
-  transactions?: Movements[];
-  balance?: number;
-  id?: string;
+  name: string;
+  email: string;
+  avatar: string;
+  transactions: Movements[];
+  id: string;
 }
 
 export interface TransferUiProps {

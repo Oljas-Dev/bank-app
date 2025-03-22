@@ -91,6 +91,7 @@ function ButtonAndMessage() {
   const { inputValid, sending } = useTransactions();
   const { currentRecepient } = useContext(searchContext);
 
+  const navigate = useNavigate();
   const message = useRef<HTMLInputElement>(null);
 
   function handleSendMoney(e: FormEvent<HTMLFormElement>) {
@@ -101,15 +102,15 @@ function ButtonAndMessage() {
     const sendingObject: Movements = {
       type: "sending",
       amount: -sending,
-      sendTo: currentRecepient?.name,
-      id: currentRecepient?.id,
-      img: currentRecepient?.avatar,
+      sendTo: currentRecepient!.name,
+      id: currentRecepient!.id,
+      img: currentRecepient!.avatar,
       message: enteredMessage,
       date: "21/03/2025",
     };
 
     onSend(sendingObject);
-    console.log(sendingObject, sending);
+    navigate("/home");
   }
   return (
     <form

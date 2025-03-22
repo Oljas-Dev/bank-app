@@ -4,18 +4,18 @@ import { useTransactions } from "../../../context/transactionsContext";
 
 export default function MoneyInput() {
   const [newBalance, setNewBalance] = useState(0);
-  const { updatedBalance } = useCurrentUser();
+  const { balance } = useCurrentUser();
   const { inputError, setInputError, setInputValid, setSending } =
     useTransactions();
 
   function handleChange(e: number) {
     if (e > 0) {
       setInputValid(true);
-      setNewBalance(updatedBalance - e);
+      setNewBalance(balance - e);
       setSending(e);
     } else {
       setInputValid(false);
-      setNewBalance(updatedBalance);
+      setNewBalance(balance);
       setSending(0);
     }
   }
@@ -33,7 +33,7 @@ export default function MoneyInput() {
       <label htmlFor="amount" className={inputError ? "negative__text" : ""}>
         {inputError
           ? "Insufficient money to proceed"
-          : `Balance left ${newBalance > 0 ? newBalance : updatedBalance} €`}
+          : `Balance left ${newBalance > 0 ? newBalance : balance} €`}
       </label>
       <input
         id="amount"

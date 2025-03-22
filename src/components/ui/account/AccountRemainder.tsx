@@ -3,7 +3,7 @@ import { ImageData } from "../../../types/interfaces";
 import plusImage from "../../../../public/plus_btn.png";
 
 export default function AccountRemainder() {
-  const { updatedBalance } = useCurrentUser();
+  const { balance } = useCurrentUser();
 
   const imagePlus: ImageData = {
     src: plusImage,
@@ -15,7 +15,7 @@ export default function AccountRemainder() {
       <button className="btn btn__plus">
         <img {...imagePlus} />
       </button>
-      <h2>{updatedBalance} €</h2>
+      <h2>{balance} €</h2>
     </div>
   );
 }

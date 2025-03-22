@@ -11,7 +11,7 @@ export default function TransactionsBoard() {
       btnName="check all"
       classes="info__module grid"
     >
-      {user!.transactions!.length < 1 ? (
+      {user!.transactions!.length === 0 ? (
         <p>There are no transactions to show</p>
       ) : (
         user?.transactions?.map((t) => (
@@ -20,6 +20,7 @@ export default function TransactionsBoard() {
             img={{ src: t.img, alt: t.sendTo }}
             date={t.date}
             sum={t.amount}
+            message={t.message}
           />
         ))
       )}
