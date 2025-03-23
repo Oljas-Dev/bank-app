@@ -1,7 +1,3 @@
-import Icons from "./Icons";
-import backArrow from "../../../public/arrow_back.png";
-import backArrowRed from "../../../public/arrow_back_red.png";
-import archiveIcon from "../../../public/archive-line.png";
 import { useNavigate } from "react-router-dom";
 import {
   createContext,
@@ -11,11 +7,18 @@ import {
   useContext,
   useRef,
 } from "react";
+
+import Icons from "./Icons";
+import backArrow from "../../../public/arrow_back.png";
+import backArrowRed from "../../../public/arrow_back_red.png";
+import archiveIcon from "../../../public/archive-line.png";
 import { searchContext } from "../../context/searchContext";
 import { reactChildren } from "../../types/children";
 import { useTransactions } from "../../context/transactionsContext";
 import { useCurrentUser } from "../../context/currentUser";
 import { Movements } from "../../types/interfaces";
+import loanImg from "../../../public/users/loan.png";
+import { generateId } from "../../helpers/RandomId";
 
 interface TransferProps {
   inputError: boolean;
@@ -70,6 +73,7 @@ function Input() {
 }
 
 function SendTo() {
+  const { loan } = useCurrentUser();
   const navigate = useNavigate();
 
   return (
@@ -80,14 +84,16 @@ function SendTo() {
         alt="back"
         fn={() => navigate(-1)}
       />
-      <h3 className="link__board">Send money to</h3>
+      <h3 className="link__board">
+        {loan ? "Request new loan" : "Send money to"}
+      </h3>
       <Icons src={archiveIcon} alt="archive" classes="img" />
     </div>
   );
 }
 
 function ButtonAndMessage() {
-  const { onSend } = useCurrentUser();
+  const { onSend, onLoan, loan, user } = useCurrentUser();
   const { inputValid, sending } = useTransactions();
   const { currentRecepient } = useContext(searchContext);
 
@@ -100,18 +106,24 @@ function ButtonAndMessage() {
     const enteredMessage = message.current!.value;
 
     const sendingObject: Movements = {
-      type: "sending",
-      amount: -sending,
-      sendTo: currentRecepient!.name,
-      id: currentRecepient!.id,
-      img: currentRecepient!.avatar,
+      type: loan ? "sending" : "receiving",
+      amount: loan ? sending : -sending,
+      sendTo: loan ? user!.name : currentRecepient!.name,
+      id: generateId(),
+      img: loan ? loanImg : currentRecepient!.avatar,
       message: enteredMessage,
       date: "21/03/2025",
     };
 
-    onSend(sendingObject);
+    if (loan) {
+      onLoan(sendingObject);
+    } else {
+      onSend(sendingObject);
+    }
+
     navigate("/home");
   }
+
   return (
     <form
       typeof="submit"
@@ -124,7 +136,14 @@ function ButtonAndMessage() {
         ref={message}
         maxLength={50}
       />
-      <button className={inputValid ? "negative__bg" : ""}>send money</button>
+      <button
+        className={
+          inputValid ? `${loan ? "positive__bg" : "negative__bg"}` : ""
+        }
+        disabled={!inputValid}
+      >
+        {loan ? "send request" : "send money"}
+      </button>
     </form>
   );
 }

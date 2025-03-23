@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
 import { reactChildren } from "../types/children";
 import { Movements, UserData } from "../types/interfaces";
@@ -6,7 +12,7 @@ import user1Avatar from "../../public/users/user_1.png";
 // import user2Avatar from "../../public/users/user_2.png";
 // import user3Avatar from "../../public/users/user_3.png";
 // import depo from "../../public/users/depo.png";
-import loan from "../../public/users/loan.png";
+// import loanImg from "../../public/users/loan.png";
 
 interface CurrentUserProps {
   user?: UserData;
@@ -15,26 +21,31 @@ interface CurrentUserProps {
   onSend: (obj: Movements) => void;
   onLoan: (obj: Movements) => void;
   balance: number;
+  loan: boolean;
+  setLoan: Dispatch<SetStateAction<boolean>>;
 }
+
+type userProps = UserData | null;
 
 const currentUserContext = createContext<CurrentUserProps>(
   {} as CurrentUserProps
 );
 
 export function CurrentUser({ children }: reactChildren) {
+  const [loan, setLoan] = useState(false);
   const [updatedBalance, setUpdatedBalance] = useState([
-    {
-      type: "receiving",
-      amount: 10000,
-      sendTo: "",
-      id: "1200",
-      img: loan,
-      message: "",
-      date: "10/01/2025",
-    },
+    // {
+    //   type: "receiving",
+    //   amount: 10000,
+    //   sendTo: "",
+    //   id: "1200",
+    //   img: loanImg,
+    //   message: "",
+    //   date: "10/01/2025",
+    // },
   ]);
 
-  const user = {
+  const user: userProps = {
     name: "Jerald Hitrow",
     email: "test@test.com",
     avatar: user1Avatar,
@@ -47,8 +58,8 @@ export function CurrentUser({ children }: reactChildren) {
   let balance;
 
   if (updatedBalance.length > 0) {
-    balance = user?.transactions
-      ?.map((el) => el.amount)
+    balance = user.transactions
+      .map((el) => el.amount)
       .reduce((acc, curr) => acc + curr, 0);
   } else {
     balance = 0;
@@ -64,7 +75,16 @@ export function CurrentUser({ children }: reactChildren) {
 
   return (
     <currentUserContext.Provider
-      value={{ user, updatedBalance, firstName, onSend, onLoan, balance }}
+      value={{
+        user,
+        updatedBalance,
+        firstName,
+        onSend,
+        onLoan,
+        balance,
+        loan,
+        setLoan,
+      }}
     >
       {children}
     </currentUserContext.Provider>
@@ -80,42 +100,3 @@ export function useCurrentUser() {
 
   return context;
 }
-
-// [
-// {
-//   type: "sending",
-//   amount: -5000,
-//   sendTo: "Kate Cooper",
-//   id: "1002",
-//   img: user2Avatar,
-//   message: "",
-//   date: "today",
-// },
-// {
-//   type: "sending",
-//   amount: -1000,
-//   sendTo: "Michael Rogers",
-//   id: "1003",
-//   img: user3Avatar,
-//   message: "",
-//   date: "31/01/2025",
-// },
-// {
-//   type: "receiving",
-//   amount: 10000,
-//   sendTo: "",
-//   id: "1100",
-//   img: depo,
-//   message: "",
-//   date: "15/01/2025",
-// },
-// {
-//   type: "receiving",
-//   amount: 10000,
-//   sendTo: "",
-//   id: "1200",
-//   img: loan,
-//   message: "",
-//   date: "10/01/2025",
-// },
-// ],

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function Options() {
   const [path, setPath] = useState("");
-  const { balance } = useCurrentUser();
+  const { balance, setLoan } = useCurrentUser();
 
   const iconsData = {
     transfer: {
@@ -45,10 +45,9 @@ export default function Options() {
   function handlePath() {
     if (balance <= 0) {
       toast.error("Insufficient money to proceed, try to request loan");
-      console.log(path);
     } else {
       setPath("/newtransaction");
-      console.log(path);
+      setLoan(false);
     }
   }
   return (
@@ -63,6 +62,7 @@ export default function Options() {
         imgObj={iconsData.requestLoan.image}
         info={iconsData.requestLoan.info}
         path="/newloan"
+        fn={() => setLoan(true)}
       />
       <OptionsIcon
         imgObj={iconsData.deleteAcc.image}

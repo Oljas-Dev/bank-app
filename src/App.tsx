@@ -22,7 +22,7 @@ function App() {
                 path="newtransaction/:userId"
                 element={
                   <TransactionsProvider>
-                    <SendToForm loan={false} />
+                    <SendToForm />
                   </TransactionsProvider>
                 }
               />
@@ -30,7 +30,7 @@ function App() {
                 path="newloan"
                 element={
                   <TransactionsProvider>
-                    <SendToForm loan={true} />
+                    <SendToForm />
                   </TransactionsProvider>
                 }
               />

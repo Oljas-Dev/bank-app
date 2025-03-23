@@ -4,8 +4,8 @@ import { UserData } from "../types/interfaces";
 const users: UserData[] = Array.from({ length: 8 }, () => createRandomUser());
 
 function createRandomUser() {
-  const sex = faker.person.sex();
-  const name = faker.person.fullName(sex);
+  // const sex = faker.person.sex();
+  const name = faker.person.fullName();
   return {
     name: name,
     email: faker.internet.email(),

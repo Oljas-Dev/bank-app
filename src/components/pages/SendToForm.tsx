@@ -9,13 +9,9 @@ type ParamsProps = {
   userId: string;
 };
 
-type SendToFormProps = {
-  loan: boolean;
-};
-
-export default function SendToForm({ loan }: SendToFormProps) {
+export default function SendToForm() {
   const { searchedUsers } = useContext(searchContext);
-  const { user: currentUser } = useCurrentUser();
+  const { user: currentUser, loan } = useCurrentUser();
 
   const { userId } = useParams<ParamsProps>();
 

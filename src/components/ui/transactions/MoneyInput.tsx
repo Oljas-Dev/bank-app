@@ -4,14 +4,14 @@ import { useTransactions } from "../../../context/transactionsContext";
 
 export default function MoneyInput() {
   const [newBalance, setNewBalance] = useState(0);
-  const { balance } = useCurrentUser();
+  const { balance, loan } = useCurrentUser();
   const { inputError, setInputError, setInputValid, setSending } =
     useTransactions();
 
   function handleChange(e: number) {
     if (e > 0) {
       setInputValid(true);
-      setNewBalance(balance - e);
+      setNewBalance(loan ? balance + e : balance - e);
       setSending(e);
     } else {
       setInputValid(false);
