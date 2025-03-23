@@ -43,12 +43,15 @@ export function CurrentUser({ children }: reactChildren) {
 
   const firstName = user?.name.split(" ")[0];
 
-  const balance =
-    user.transactions.length > 0
-      ? user?.transactions
-          ?.map((el) => el.amount)
-          .reduce((acc, curr) => acc + curr, 0)
-      : 0;
+  let balance;
+
+  if (updatedBalance.length > 0) {
+    balance = user?.transactions
+      ?.map((el) => el.amount)
+      .reduce((acc, curr) => acc + curr, 0);
+  } else {
+    balance = 0;
+  }
 
   function onSend(obj: Movements) {
     setUpdatedBalance((prevArr) => prevArr.concat(obj));
