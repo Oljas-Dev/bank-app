@@ -13,6 +13,7 @@ interface CurrentUserProps {
   updatedBalance: Movements[];
   firstName: string;
   onSend: (obj: Movements) => void;
+  onLoan: (obj: Movements) => void;
   balance: number;
 }
 
@@ -57,9 +58,13 @@ export function CurrentUser({ children }: reactChildren) {
     setUpdatedBalance((prevArr) => prevArr.concat(obj));
   }
 
+  function onLoan(obj: Movements) {
+    setUpdatedBalance((prevArr) => prevArr.concat(obj));
+  }
+
   return (
     <currentUserContext.Provider
-      value={{ user, updatedBalance, firstName, onSend, balance }}
+      value={{ user, updatedBalance, firstName, onSend, onLoan, balance }}
     >
       {children}
     </currentUserContext.Provider>

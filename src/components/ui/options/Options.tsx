@@ -62,7 +62,7 @@ export default function Options() {
       <OptionsIcon
         imgObj={iconsData.requestLoan.image}
         info={iconsData.requestLoan.info}
-        path="#"
+        path="/newloan"
       />
       <OptionsIcon
         imgObj={iconsData.deleteAcc.image}

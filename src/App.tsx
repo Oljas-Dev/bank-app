@@ -22,7 +22,15 @@ function App() {
                 path="newtransaction/:userId"
                 element={
                   <TransactionsProvider>
-                    <SendToForm />
+                    <SendToForm loan={false} />
+                  </TransactionsProvider>
+                }
+              />
+              <Route
+                path="newloan"
+                element={
+                  <TransactionsProvider>
+                    <SendToForm loan={true} />
                   </TransactionsProvider>
                 }
               />
