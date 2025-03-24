@@ -1,11 +1,13 @@
 import { createContext, Dispatch, JSX, SetStateAction, useState } from "react";
 import { reactChildren } from "../types/children";
 import { users } from "../tempUserObjects/UserObjects";
-import { UserData } from "../types/interfaces";
+import { dataTest, UserData } from "../types/interfaces";
 
 type undefinedString = string | undefined;
 
 interface ContextProps {
+  user: dataTest;
+  setUser: Dispatch<SetStateAction<UserData>>;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
   searchedUsers: UserData[];
@@ -18,6 +20,7 @@ export const searchContext = createContext<ContextProps>({} as ContextProps);
 
 export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   const [searchQuery, setSearchQuery] = useState("");
+  const [user, setUser] = useState({});
   const [currentId, setCurrentId] = useState<undefinedString>("");
 
   const searchedUsers =
@@ -32,6 +35,8 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   return (
     <searchContext.Provider
       value={{
+        user,
+        setUser,
         searchQuery,
         setSearchQuery,
         searchedUsers,

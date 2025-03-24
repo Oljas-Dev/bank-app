@@ -7,15 +7,17 @@ import {
 } from "react";
 
 import { reactChildren } from "../types/children";
-import { Movements, UserData } from "../types/interfaces";
-import user1Avatar from "../../public/users/user_1.png";
+import { Movements } from "../types/interfaces";
+// import user1Avatar from "../../public/users/user_1.png";
+import { searchContext } from "./searchContext";
 // import user2Avatar from "../../public/users/user_2.png";
 // import user3Avatar from "../../public/users/user_3.png";
 // import depo from "../../public/users/depo.png";
 // import loanImg from "../../public/users/loan.png";
 
+// type userProps = UserData | null;
+
 interface CurrentUserProps {
-  user?: UserData;
   updatedBalance: Movements[];
   firstName: string;
   onSend: (obj: Movements) => void;
@@ -25,34 +27,26 @@ interface CurrentUserProps {
   setLoan: Dispatch<SetStateAction<boolean>>;
 }
 
-type userProps = UserData | null;
-
 const currentUserContext = createContext<CurrentUserProps>(
   {} as CurrentUserProps
 );
 
 export function CurrentUser({ children }: reactChildren) {
+  const [updatedBalance, setUpdatedBalance] = useState([{}]);
   const [loan, setLoan] = useState(false);
-  const [updatedBalance, setUpdatedBalance] = useState([
-    // {
-    //   type: "receiving",
-    //   amount: 10000,
-    //   sendTo: "",
-    //   id: "1200",
-    //   img: loanImg,
-    //   message: "",
-    //   date: "10/01/2025",
-    // },
-  ]);
 
-  const user: userProps = {
-    name: "Jerald Hitrow",
-    email: "test@test.com",
-    avatar: user1Avatar,
-    transactions: updatedBalance,
-    id: "1001",
-    password: "1111",
-  };
+  const { user } = useContext(searchContext);
+
+  if (!user) return alert("Please login first");
+
+  // const user: userProps = {
+  //   name: "Jerald Hitrow",
+  //   email: "jerald@test.com",
+  //   avatar: user1Avatar,
+  //   transactions: updatedBalance,
+  //   id: "1001",
+  //   password: "1111",
+  // };
 
   const firstName = user?.name.split(" ")[0];
 

@@ -8,36 +8,44 @@ import SendToForm from "./components/pages/SendToForm";
 import { CurrentUser } from "./context/currentUser";
 import { Toaster } from "react-hot-toast";
 import { TransactionsProvider } from "./context/transactionsContext";
+import LoginPage from "./components/pages/LoginPage";
 
 function App() {
   return (
     <SearchUserProvider>
-      <CurrentUser>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<Container />}>
-              <Route path="home" element={<HomePage />} />
-              <Route path="newtransaction" element={<TransferMoney />} />
-              <Route
-                path="newtransaction/:userId"
-                element={
-                  <TransactionsProvider>
-                    <SendToForm />
-                  </TransactionsProvider>
-                }
-              />
-              <Route
-                path="newloan"
-                element={
-                  <TransactionsProvider>
-                    <SendToForm />
-                  </TransactionsProvider>
-                }
-              />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </CurrentUser>
+      <BrowserRouter>
+        <Routes>
+          <Route path="login" element={<LoginPage />} />
+          {/* <CurrentUser> */}
+          <Route
+            element={
+              <CurrentUser>
+                <Container />
+              </CurrentUser>
+            }
+          >
+            <Route path="home" element={<HomePage />} />
+            <Route path="newtransaction" element={<TransferMoney />} />
+            <Route
+              path="newtransaction/:userId"
+              element={
+                <TransactionsProvider>
+                  <SendToForm />
+                </TransactionsProvider>
+              }
+            />
+            <Route
+              path="newloan"
+              element={
+                <TransactionsProvider>
+                  <SendToForm />
+                </TransactionsProvider>
+              }
+            />
+          </Route>
+          {/* </CurrentUser> */}
+        </Routes>
+      </BrowserRouter>
       <Toaster />
     </SearchUserProvider>
   );

@@ -5,21 +5,25 @@ export interface ImageData {
   fn?: () => void;
 }
 
-export type Movements = {
-  type: string;
-  amount: number;
-  sendTo: string;
-  id: string;
-  img: string;
-  message: string;
-  date: string;
-};
+// type MovObject = {
+//   type: string;
+//   amount: number;
+//   sendTo: string;
+//   id: string;
+//   img: string;
+//   message: string;
+//   date: string;
+// };
+
+export type dataTest = Record<string, number | string>;
+
+export type Movements = dataTest;
 
 export interface UserData {
   name: string;
   email: string;
   avatar: string;
-  transactions: Movements[];
+  transactions: object[];
   id: string;
   password: string;
 }

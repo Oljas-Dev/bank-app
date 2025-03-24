@@ -1,11 +1,13 @@
 // import { faker, simpleFaker } from "@faker-js/faker";
 // import { UserData } from "../types/interfaces";
+import user1Pic from "../../public/users/user_1.png";
 import user2Pic from "../../public/users/user_2.png";
 import user3Pic from "../../public/users/user_3.png";
 import user4Pic from "../../public/users/user_4.png";
 import user5Pic from "../../public/users/user_5.png";
 import user6Pic from "../../public/users/user_6.png";
 import user7Pic from "../../public/users/user_7.png";
+import { UserData } from "../types/interfaces";
 
 // const users: UserData[] = Array.from({ length: 8 }, () => createRandomUser());
 
@@ -20,6 +22,15 @@ import user7Pic from "../../public/users/user_7.png";
 //     id: simpleFaker.string.uuid(),
 //   };
 // }
+
+const user1 = {
+  name: "Jerald Hitrow",
+  email: "jerald@test.com",
+  avatar: user1Pic,
+  transactions: [],
+  id: "1001",
+  password: "1111",
+};
 
 const user2 = {
   name: "Courtney Schmidt",
@@ -70,6 +81,6 @@ const user7 = {
   password: "1111",
 };
 
-const users = [user2, user3, user4, user5, user6, user7];
+const users: UserData[] = [user1, user2, user3, user4, user5, user6, user7];
 
 export { users };
