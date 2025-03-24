@@ -105,12 +105,24 @@ function ButtonAndMessage() {
 
     const enteredMessage = message.current!.value;
 
+    const transactionId = generateId();
+
     const sendingObject: Movements = {
       type: loan ? "sending" : "receiving",
       amount: loan ? sending : -sending,
       sendTo: loan ? user!.name : currentRecepient!.name,
-      id: generateId(),
+      id: transactionId,
       img: loan ? loanImg : currentRecepient!.avatar,
+      message: enteredMessage,
+      date: "21/03/2025",
+    };
+
+    const receivingObj: Movements = {
+      type: "receiving",
+      amount: sending,
+      sendTo: user!.name,
+      id: transactionId,
+      img: user!.avatar,
       message: enteredMessage,
       date: "21/03/2025",
     };
@@ -121,6 +133,7 @@ function ButtonAndMessage() {
       onSend(sendingObject);
     }
 
+    currentRecepient?.transactions.push(receivingObj);
     navigate("/home");
   }
 
