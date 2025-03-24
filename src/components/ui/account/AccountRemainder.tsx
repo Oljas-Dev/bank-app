@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { useCurrentUser } from "../../../context/currentUser";
 import { ImageData } from "../../../types/interfaces";
 import plusImage from "../../../../public/plus_btn.png";
+import { useContext } from "react";
+import { searchContext } from "../../../context/searchContext";
 
 export default function AccountRemainder() {
-  const { balance, setLoan } = useCurrentUser();
+  const { balance } = useContext(searchContext);
+  const { setLoan } = useCurrentUser();
 
   const imagePlus: ImageData = {
     src: plusImage,

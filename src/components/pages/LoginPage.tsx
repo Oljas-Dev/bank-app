@@ -6,7 +6,7 @@ import { searchContext } from "../../context/searchContext";
 import { users } from "../../tempUserObjects/UserObjects";
 
 export default function LoginPage() {
-  const { setUser } = useContext(searchContext);
+  const { setUser, handleBalance } = useContext(searchContext);
   const navigate = useNavigate();
 
   const email = useRef<HTMLInputElement>(null);
@@ -22,8 +22,10 @@ export default function LoginPage() {
 
     if (!checkUser || checkUser.password !== enteredPassword) {
       toast.error("Sorry, but there is no match!");
+      return;
     } else {
       setUser(checkUser);
+      handleBalance(checkUser);
     }
 
     navigate("/home");

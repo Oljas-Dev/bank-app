@@ -132,9 +132,9 @@ function ButtonAndMessage() {
       onLoan(sendingObject);
     } else {
       onSend(sendingObject);
+      currentRecepient?.transactions.push(receivingObj);
     }
 
-    currentRecepient?.transactions.push(receivingObj);
     navigate("/home");
   }
 
