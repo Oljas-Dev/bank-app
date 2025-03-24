@@ -21,6 +21,7 @@ export interface UserData {
   avatar: string;
   transactions: Movements[];
   id: string;
+  password: string;
 }
 
 export interface TransferUiProps {

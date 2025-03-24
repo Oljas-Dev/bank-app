@@ -19,6 +19,7 @@ import { useCurrentUser } from "../../context/currentUser";
 import { Movements } from "../../types/interfaces";
 import loanImg from "../../../public/users/loan.png";
 import { generateId } from "../../helpers/RandomId";
+import { currentDate } from "../../helpers/GetTime";
 
 interface TransferProps {
   inputError: boolean;
@@ -114,7 +115,7 @@ function ButtonAndMessage() {
       id: transactionId,
       img: loan ? loanImg : currentRecepient!.avatar,
       message: enteredMessage,
-      date: "21/03/2025",
+      date: currentDate,
     };
 
     const receivingObj: Movements = {
@@ -124,7 +125,7 @@ function ButtonAndMessage() {
       id: transactionId,
       img: user!.avatar,
       message: enteredMessage,
-      date: "21/03/2025",
+      date: currentDate,
     };
 
     if (loan) {

@@ -27,6 +27,7 @@ const user2 = {
   avatar: user2Pic,
   transactions: [],
   id: "c173ec24",
+  password: "1111",
 };
 const user3 = {
   name: "Bonnie Bartel",
@@ -34,6 +35,7 @@ const user3 = {
   avatar: user3Pic,
   transactions: [],
   id: "750434b1",
+  password: "1111",
 };
 const user4 = {
   name: "Kristy Kuhic",
@@ -41,6 +43,7 @@ const user4 = {
   avatar: user4Pic,
   transactions: [],
   id: "5a4f7460",
+  password: "1111",
 };
 const user5 = {
   name: "Elvira Pacocha",
@@ -48,6 +51,7 @@ const user5 = {
   avatar: user5Pic,
   transactions: [],
   id: "ad4c8d4e",
+  password: "1111",
 };
 const user6 = {
   name: "Willis Ledner",
@@ -55,6 +59,7 @@ const user6 = {
   avatar: user6Pic,
   transactions: [],
   id: "2d72439b",
+  password: "1111",
 };
 const user7 = {
   name: "Phillip Cummings",
@@ -62,6 +67,7 @@ const user7 = {
   avatar: user7Pic,
   transactions: [],
   id: "9b62a064",
+  password: "1111",
 };
 
 const users = [user2, user3, user4, user5, user6, user7];

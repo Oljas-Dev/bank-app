@@ -51,6 +51,7 @@ export function CurrentUser({ children }: reactChildren) {
     avatar: user1Avatar,
     transactions: updatedBalance,
     id: "1001",
+    password: "1111",
   };
 
   const firstName = user?.name.split(" ")[0];
