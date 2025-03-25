@@ -50,6 +50,11 @@ export default function Options() {
       setLoan(false);
     }
   }
+
+  function handleLoan() {
+    setLoan(true);
+    console.log(true);
+  }
   return (
     <section className="options fl-btw">
       <OptionsIcon
@@ -62,7 +67,7 @@ export default function Options() {
         imgObj={iconsData.requestLoan.image}
         info={iconsData.requestLoan.info}
         path="/newloan"
-        fn={() => setLoan(true)}
+        fn={handleLoan}
       />
       <OptionsIcon
         imgObj={iconsData.deleteAcc.image}

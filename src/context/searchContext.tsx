@@ -1,20 +1,20 @@
 import { createContext, Dispatch, JSX, SetStateAction, useState } from "react";
 import { reactChildren } from "../types/children";
 import { users } from "../tempUserObjects/UserObjects";
-import { UserData } from "../types/interfaces";
+import { dataTest } from "../types/interfaces";
 
 type undefinedString = string | undefined;
 
 interface ContextProps {
-  user: UserData;
-  setUser: Dispatch<SetStateAction<UserData>>;
+  user: dataTest;
+  setUser: Dispatch<SetStateAction<dataTest>>;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
-  searchedUsers: UserData[];
+  searchedUsers: dataTest[];
   currentId: undefinedString;
   setCurrentId: Dispatch<SetStateAction<undefinedString>>;
-  currentRecepient: UserData | undefined;
-  handleBalance: (user: UserData) => void;
+  currentRecepient: dataTest | undefined;
+  handleBalance: (user: dataTest) => void;
   balance: number | undefined;
 }
 
@@ -28,22 +28,24 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
 
   const searchedUsers =
     searchQuery.length > 0
-      ? users.filter((user) =>
-          user.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      ? users.filter(
+          (user) =>
+            typeof user.name === "string" &&
+            user.name?.toLowerCase().includes(searchQuery.toLowerCase())
         )
       : users;
 
-  console.log(users);
-
   const currentRecepient = users.find((user) => user.id === currentId);
 
-  function handleBalance(user: UserData) {
-    const balanceCalc =
-      user?.transactions
-        .map((el) => el.amount)
-        .reduce((acc, curr) => acc + curr, 0) || 0;
+  function handleBalance(user: dataTest) {
+    if (typeof user === "object") {
+      const balanceCalc =
+        user.transactions
+          .map((el: object) => el.amount)
+          .reduce((acc: number, curr: number) => acc + curr, 0) || 0;
 
-    setBalance(balanceCalc);
+      setBalance(balanceCalc);
+    }
   }
 
   return (

@@ -1,22 +1,30 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useCurrentUser } from "../../../context/currentUser";
 import { useTransactions } from "../../../context/transactionsContext";
+import { searchContext } from "../../../context/searchContext";
+import toast from "react-hot-toast";
 
 export default function MoneyInput() {
   const [newBalance, setNewBalance] = useState(0);
-  const { balance, loan } = useCurrentUser();
+  const { balance } = useContext(searchContext);
+  const { loan } = useCurrentUser();
   const { inputError, setInputError, setInputValid, setSending } =
     useTransactions();
 
   function handleChange(e: number) {
-    if (e > 0) {
-      setInputValid(true);
-      setNewBalance(loan ? balance + e : balance - e);
-      setSending(e);
-    } else {
+    if (e <= 0) {
       setInputValid(false);
-      setNewBalance(balance);
+      setNewBalance(balance!);
       setSending(0);
+    } else if (e > balance!) {
+      setInputValid(false);
+      setNewBalance(balance!);
+      setSending(0);
+      toast.error("Insufficient balance to proceed!");
+    } else {
+      setInputValid(true);
+      setNewBalance(loan ? balance! + e : balance! - e);
+      setSending(e);
     }
   }
 

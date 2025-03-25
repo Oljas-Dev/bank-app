@@ -7,15 +7,15 @@ import {
 } from "react";
 
 import { reactChildren } from "../types/children";
-import { Movements, UserData } from "../types/interfaces";
+import { dataTest } from "../types/interfaces";
 import user1Avatar from "../../public/users/user_1.png";
 import { searchContext } from "./searchContext";
 
 interface CurrentUserProps {
-  user: UserData;
-  firstName: string;
-  onSend: (obj: Movements) => void;
-  onLoan: (obj: Movements) => void;
+  user: dataTest;
+  firstName: string | boolean;
+  onSend: (obj: dataTest) => void;
+  onLoan: (obj: dataTest) => void;
   loan: boolean;
   setLoan: Dispatch<SetStateAction<boolean>>;
 }
@@ -28,7 +28,7 @@ export function CurrentUser({ children }: reactChildren) {
   const { user: currentUser, handleBalance } = useContext(searchContext);
   const [loan, setLoan] = useState(false);
 
-  const user: UserData = currentUser || {
+  const user: dataTest = currentUser || {
     name: "Jerald Hitrow",
     email: "jerald@test.com",
     avatar: user1Avatar,
@@ -37,16 +37,20 @@ export function CurrentUser({ children }: reactChildren) {
     password: "1111",
   };
 
-  const firstName = user?.name.split(" ")[0];
+  const firstName = typeof user.name === "string" && user?.name.split(" ")[0];
 
-  function onSend(obj: Movements) {
-    user.transactions.push(obj);
-    handleBalance(user);
+  function onSend(obj: dataTest) {
+    if (Array.isArray(user.transactions)) {
+      user.transactions.push(obj);
+      handleBalance(user);
+    }
   }
 
-  function onLoan(obj: Movements) {
-    user.transactions.push(obj);
-    handleBalance(user);
+  function onLoan(obj: dataTest) {
+    if (Array.isArray(user.transactions)) {
+      user.transactions.push(obj);
+      handleBalance(user);
+    }
   }
 
   return (

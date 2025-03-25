@@ -15,7 +15,7 @@ export interface ImageData {
 //   date: string;
 // };
 
-export type dataTest = Record<string, number | string>;
+export type dataTest = Record<string, number | string | string[] | number[]>;
 
 export type Movements = dataTest;
 
