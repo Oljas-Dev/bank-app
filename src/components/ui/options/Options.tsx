@@ -4,11 +4,13 @@ import requestLoan from "../../../../public/bank.png";
 import deleteAccount from "../../../../public/delete.png";
 import { useCurrentUser } from "../../../context/currentUser";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { searchContext } from "../../../context/searchContext";
 
 export default function Options() {
   const [path, setPath] = useState("");
-  const { balance, setLoan } = useCurrentUser();
+  const { loan, setLoan } = useCurrentUser();
+  const { balance } = useContext(searchContext);
 
   const iconsData = {
     transfer: {
@@ -35,7 +37,7 @@ export default function Options() {
   };
 
   useEffect(() => {
-    if (balance <= 0) {
+    if (balance! <= 0) {
       setPath("#");
     } else {
       setPath("/newtransaction");
@@ -43,7 +45,7 @@ export default function Options() {
   }, [balance]);
 
   function handlePath() {
-    if (balance <= 0) {
+    if (balance! <= 0) {
       toast.error("Insufficient money to proceed, try to request loan");
     } else {
       setPath("/newtransaction");
@@ -53,7 +55,7 @@ export default function Options() {
 
   function handleLoan() {
     setLoan(true);
-    console.log(true);
+    console.log(loan);
   }
   return (
     <section className="options fl-btw">

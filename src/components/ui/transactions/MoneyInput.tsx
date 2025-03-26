@@ -16,7 +16,7 @@ export default function MoneyInput() {
       setInputValid(false);
       setNewBalance(balance!);
       setSending(0);
-    } else if (e > balance!) {
+    } else if (!loan && e > balance!) {
       setInputValid(false);
       setNewBalance(balance!);
       setSending(0);

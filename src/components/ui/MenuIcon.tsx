@@ -5,6 +5,7 @@ export default function MenuIcon() {
   return (
     <span className="menu cursor">
       <Icons classes="menu__img" src={icon} alt="menu icon" />
+      <MenuIcon />
     </span>
   );
 }
