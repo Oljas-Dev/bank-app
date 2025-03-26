@@ -34,7 +34,7 @@ const user1 = {
 
 const user2 = {
   name: "Courtney Schmidt",
-  email: "schmidt@test.com",
+  email: "courtney@test.com",
   avatar: user2Pic,
   transactions: [],
   id: "c173ec24",

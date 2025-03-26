@@ -26,13 +26,18 @@ export default function LoginPage() {
     } else {
       setUser(checkUser);
       handleBalance(checkUser);
+      // localStorage.setItem("user", JSON.stringify(checkUser));
     }
 
     navigate("/home");
   }
 
+  // const checkStorage = localStorage.getItem("user");
+
+  // console.log(checkStorage);
+
   return (
-    <div className="screen-80 flex">
+    <div className="screen-80 flex login">
       <form
         typeof="submit"
         className="fl-col txt-center"

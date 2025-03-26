@@ -36,6 +36,7 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
       : users;
 
   const currentRecepient = users.find((user) => user.id === currentId);
+  // const user = JSON.parse(localStorage.getItem("user"));
 
   function handleBalance(user: dataTest) {
     if (typeof user === "object") {

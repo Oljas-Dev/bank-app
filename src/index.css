@@ -126,6 +126,12 @@ p {
   overflow: auto;
 }
 
+/* Login */
+
+.login {
+  color: var(--color-icons);
+}
+
 /* Navigation */
 
 .nav,
@@ -245,6 +251,29 @@ p {
   width: 0.4rem;
   height: 2rem;
   cursor: pointer;
+}
+
+.menu__dropdown {
+  /* display: none; */
+  background-color: var(--color-text);
+  color: var(--color-icons);
+  text-align: left;
+
+  position: absolute;
+  top: 4.3rem;
+  right: 0;
+  width: 10rem;
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.2);
+}
+
+.menu__dropdown li {
+  list-style: none;
+  padding: 0.8rem;
+  cursor: pointer;
+}
+
+.menu__dropdown li:hover {
+  background-color: var(--color-sec-frames);
 }
 
 /* Account info */
