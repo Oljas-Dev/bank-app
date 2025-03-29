@@ -15,7 +15,7 @@ function App() {
     <SearchUserProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="login" element={<LoginPage />} />
+          <Route index path="/" element={<LoginPage />} />
           {/* <CurrentUser> */}
           <Route
             element={

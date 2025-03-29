@@ -15,7 +15,10 @@ export interface ImageData {
 //   date: string;
 // };
 
-export type dataTest = Record<string, number | string | string[] | number[]>;
+export type dataTest = Record<
+  string,
+  number | string | string[] | number[] | boolean | object[]
+>;
 
 export type Movements = dataTest;
 
@@ -26,6 +29,7 @@ export interface UserData {
   transactions: object[];
   id: string;
   password: string;
+  current: boolean;
 }
 
 export interface TransferUiProps {

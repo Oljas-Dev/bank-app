@@ -30,6 +30,7 @@ const user1 = {
   transactions: [],
   id: "1001",
   password: "1111",
+  current: false,
 };
 
 const user2 = {
@@ -39,6 +40,7 @@ const user2 = {
   transactions: [],
   id: "c173ec24",
   password: "1111",
+  current: false,
 };
 const user3 = {
   name: "Bonnie Bartel",
@@ -47,6 +49,7 @@ const user3 = {
   transactions: [],
   id: "750434b1",
   password: "1111",
+  current: false,
 };
 const user4 = {
   name: "Kristy Kuhic",
@@ -55,6 +58,7 @@ const user4 = {
   transactions: [],
   id: "5a4f7460",
   password: "1111",
+  current: false,
 };
 const user5 = {
   name: "Elvira Pacocha",
@@ -63,6 +67,7 @@ const user5 = {
   transactions: [],
   id: "ad4c8d4e",
   password: "1111",
+  current: false,
 };
 const user6 = {
   name: "Willis Ledner",
@@ -71,6 +76,7 @@ const user6 = {
   transactions: [],
   id: "2d72439b",
   password: "1111",
+  current: false,
 };
 const user7 = {
   name: "Phillip Cummings",
@@ -79,6 +85,7 @@ const user7 = {
   transactions: [],
   id: "9b62a064",
   password: "1111",
+  current: false,
 };
 
 const users: dataTest[] = [user1, user2, user3, user4, user5, user6, user7];

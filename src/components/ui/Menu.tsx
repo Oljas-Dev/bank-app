@@ -5,7 +5,7 @@ export default function Menu() {
     <div className="menu__dropdown">
       <ul>
         <li>
-          <Link to="/login">Change account</Link>
+          <Link to="/">Change account</Link>
         </li>
         {/* <li>Logout</li> */}
       </ul>
