@@ -11,6 +11,7 @@ type usersObj = {
 
 export default function UsersBoard({ obj, link }: usersObj) {
   const { setCurrentId } = useContext(searchContext);
+
   if (link)
     return (
       <Link

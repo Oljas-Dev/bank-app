@@ -16,7 +16,7 @@ import { searchContext } from "../../context/searchContext";
 import { reactChildren } from "../../types/children";
 import { useTransactions } from "../../context/transactionsContext";
 import { useCurrentUser } from "../../context/currentUser";
-import { Movements } from "../../types/interfaces";
+import { Transactions } from "../../types/interfaces";
 import loanImg from "../../../public/users/loan.png";
 import { generateId } from "../../helpers/RandomId";
 import { currentDate } from "../../helpers/GetTime";
@@ -108,7 +108,7 @@ function ButtonAndMessage() {
 
     const transactionId = generateId();
 
-    const sendingObject: Movements = {
+    const sendingObject: Transactions = {
       type: loan ? "sending" : "receiving",
       amount: loan ? sending : -sending,
       sendTo: loan ? user!.name : currentRecepient!.name,
@@ -118,7 +118,7 @@ function ButtonAndMessage() {
       date: currentDate,
     };
 
-    const receivingObj: Movements = {
+    const receivingObj: Transactions = {
       type: "receiving",
       amount: sending,
       sendTo: user!.name,

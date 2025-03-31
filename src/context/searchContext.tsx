@@ -1,22 +1,21 @@
 import { createContext, Dispatch, JSX, SetStateAction, useState } from "react";
 import { reactChildren } from "../types/children";
 import { users } from "../tempUserObjects/UserObjects";
-import { dataTest } from "../types/interfaces";
+import { Transactions, UserData } from "../types/interfaces";
 
 type undefinedString = string | undefined;
 
 interface ContextProps {
-  user: dataTest;
-  setUser: Dispatch<SetStateAction<dataTest>>;
+  user: UserData | undefined;
+  setUser: Dispatch<SetStateAction<UserData | undefined>>;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
-  searchedUsers: dataTest[];
+  searchedUsers: UserData[];
   currentId: undefinedString;
   setCurrentId: Dispatch<SetStateAction<undefinedString>>;
-  currentRecepient: dataTest | undefined;
-  handleBalance: (user: dataTest) => void;
+  currentRecepient: UserData | undefined;
+  handleBalance: (user: UserData) => void;
   balance: number | undefined;
-  storedUsers: dataTest | null;
 }
 
 export const searchContext = createContext<ContextProps>({} as ContextProps);
@@ -27,25 +26,17 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
     const allUsers = localStorage.getItem("user");
 
     const parsedUsers = JSON.parse(allUsers!);
-    const user = parsedUsers.find((user: dataTest) => user!.current === true);
+    const user = parsedUsers?.find((user: UserData) => user!.current === true);
     return user;
   });
 
   const [currentId, setCurrentId] = useState<undefinedString>("");
   const [balance, setBalance] = useState(function () {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const parsedUsers = JSON.parse(user);
-      const currentUser = parsedUsers.find(
-        (user: dataTest) => user!.current === true
-      );
-
-      const balanceCalc =
-        currentUser?.transactions
-          ?.map((el: dataTest) => el.amount)
-          .reduce((acc: number, curr: number) => acc + curr, 0) || 0;
-      return balanceCalc;
-    }
+    const balanceCalc =
+      user?.transactions
+        ?.map((el: Transactions) => el.amount)
+        .reduce((acc: number, curr: number) => acc + curr, 0) || 0;
+    return balanceCalc;
   });
 
   const searchedUsers =
@@ -59,10 +50,7 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
 
   const currentRecepient = users.find((user) => user.id === currentId);
 
-  const userExists = localStorage.getItem("user");
-  const storedUsers = JSON.parse(userExists!);
-
-  function handleBalance(user: dataTest) {
+  function handleBalance(user: UserData) {
     if (user.transactions instanceof Array) {
       const balanceCalc =
         user
@@ -89,7 +77,6 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
         currentRecepient,
         handleBalance,
         balance,
-        storedUsers,
       }}
     >
       {children}

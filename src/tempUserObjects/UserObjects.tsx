@@ -7,7 +7,7 @@ import user4Pic from "../../public/users/user_4.png";
 import user5Pic from "../../public/users/user_5.png";
 import user6Pic from "../../public/users/user_6.png";
 import user7Pic from "../../public/users/user_7.png";
-import { dataTest } from "../types/interfaces";
+import { UserData } from "../types/interfaces";
 
 // const users: UserData[] = Array.from({ length: 8 }, () => createRandomUser());
 
@@ -88,6 +88,6 @@ const user7 = {
   current: false,
 };
 
-const users: dataTest[] = [user1, user2, user3, user4, user5, user6, user7];
+const users: UserData[] = [user1, user2, user3, user4, user5, user6, user7];
 
 export { users };

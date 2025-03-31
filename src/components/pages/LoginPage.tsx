@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useEffect, useRef } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import { searchContext } from "../../context/searchContext";
 import { users } from "../../tempUserObjects/UserObjects";
@@ -45,10 +45,6 @@ export default function LoginPage() {
       return;
     }
   }, []);
-
-  // const checkStorage = localStorage.getItem("user");
-
-  // console.log(checkStorage);
 
   return (
     <div className="screen-80 flex login">

@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import { useCurrentUser } from "../../../context/currentUser";
+import { Transactions } from "../../../types/interfaces";
 import Modal from "../Modal";
 import Details from "./Details";
 
@@ -13,11 +14,11 @@ export default function TransactionsBoard() {
       btnName="check all"
       classes="info__module grid"
     >
-      {user!.transactions!.length === 0 ? (
+      {user.transactions.length <= 0 ? (
         <p>There are no transactions to show</p>
       ) : (
         user?.transactions
-          ?.map((t) => (
+          ?.map((t: Transactions) => (
             <Details
               key={t.id}
               img={{ src: t.img, alt: t.sendTo }}

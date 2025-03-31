@@ -44,9 +44,3 @@ Transaction.Sending = Sending;
 Transaction.Requesting = Requesting;
 
 export default Transaction;
-
-// export function useTransactions() {
-//   const context = useContext(TransactionsContext);
-
-//   return context;
-// }
