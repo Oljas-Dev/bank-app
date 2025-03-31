@@ -1,15 +1,7 @@
-import {
-  createContext,
-  Dispatch,
-  JSX,
-  SetStateAction,
-  use,
-  useState,
-} from "react";
+import { createContext, Dispatch, JSX, SetStateAction, useState } from "react";
 import { reactChildren } from "../types/children";
 import { users } from "../tempUserObjects/UserObjects";
 import { dataTest } from "../types/interfaces";
-import toast from "react-hot-toast";
 
 type undefinedString = string | undefined;
 
@@ -33,9 +25,10 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(function () {
     const allUsers = localStorage.getItem("user");
+
     const parsedUsers = JSON.parse(allUsers!);
-    const user = parsedUsers.find((user) => user.current === true);
-    return user ? user : toast.error("Please login to the app!");
+    const user = parsedUsers.find((user: dataTest) => user!.current === true);
+    return user;
   });
 
   const [currentId, setCurrentId] = useState<undefinedString>("");
@@ -48,8 +41,8 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
       );
 
       const balanceCalc =
-        currentUser.transactions
-          .map((el: object) => el.amount)
+        currentUser?.transactions
+          ?.map((el: dataTest) => el.amount)
           .reduce((acc: number, curr: number) => acc + curr, 0) || 0;
       return balanceCalc;
     }
@@ -70,13 +63,13 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   const storedUsers = JSON.parse(userExists!);
 
   function handleBalance(user: dataTest) {
-    if (typeof user === "object") {
+    if (user.transactions instanceof Array) {
       const balanceCalc =
-        user.transactions
-          .map((el: object) => el.amount)
+        user
+          .transactions!.map((el) => el.amount)
           .reduce((acc: number, curr: number) => acc + curr, 0) || 0;
 
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(users));
       setBalance(balanceCalc);
     } else {
       setBalance(0);

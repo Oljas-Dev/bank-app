@@ -6,7 +6,7 @@ import { searchContext } from "../../context/searchContext";
 import { users } from "../../tempUserObjects/UserObjects";
 
 export default function LoginPage() {
-  const { setUser } = useContext(searchContext);
+  const { setUser, handleBalance } = useContext(searchContext);
   const navigate = useNavigate();
 
   const email = useRef<HTMLInputElement>(null);
@@ -31,27 +31,20 @@ export default function LoginPage() {
 
       localStorage.setItem("user", JSON.stringify(users));
 
-      // handleBalance(checkUser);
-
-      // if (storedUsers) {
-      //   const newUsers: object[] = [];
-
-      //   console.log(storedUsers);
-      //   localStorage.setItem(
-      //     "user",
-      //     JSON.stringify(newUsers.concat(storedUsers, checkUser))
-      //   );
-      // } else {
-      //   localStorage.setItem("user", JSON.stringify([checkUser]));
-      // }
+      handleBalance(checkUser);
     }
 
     navigate("/home");
   }
 
-  // useEffect(function () {
-  //   localStorage.setItem("user", JSON.stringify(users));
-  // }, []);
+  useEffect(function () {
+    const usersExist = localStorage.setItem("user", JSON.stringify(users));
+    if (usersExist === undefined) {
+      localStorage.setItem("user", JSON.stringify(users));
+    } else {
+      return;
+    }
+  }, []);
 
   // const checkStorage = localStorage.getItem("user");
 
