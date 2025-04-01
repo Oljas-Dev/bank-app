@@ -6,7 +6,7 @@ import { searchContext } from "../../context/searchContext";
 import { users } from "../../tempUserObjects/UserObjects";
 
 export default function LoginPage() {
-  const { setUser, handleBalance } = useContext(searchContext);
+  const { setUser, handleBalance, setTimeleft } = useContext(searchContext);
   const navigate = useNavigate();
 
   const email = useRef<HTMLInputElement>(null);
@@ -32,6 +32,7 @@ export default function LoginPage() {
       localStorage.setItem("user", JSON.stringify(users));
 
       handleBalance(checkUser);
+      setTimeleft(180); // Set the time left for logout (in seconds)
     }
 
     navigate("/home");

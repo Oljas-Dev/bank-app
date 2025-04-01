@@ -1,22 +1,17 @@
 import { Link } from "react-router-dom";
-import { users } from "../../tempUserObjects/UserObjects";
+
+import { useContext } from "react";
+import { searchContext } from "../../context/searchContext";
 
 export default function Menu() {
-  function handleCleanCurrent() {
-    const currentUser = users.find((user) => user.current === true);
-    currentUser!.current = false;
-
-    localStorage.setItem("user", JSON.stringify(users));
-  }
+  const { handleCleanCurrent } = useContext(searchContext);
 
   return (
     <div className="menu__dropdown">
       <ul>
-        <li>
-          <Link to="/" onClick={handleCleanCurrent}>
-            Change account
-          </Link>
-        </li>
+        <Link to="/" onClick={handleCleanCurrent}>
+          <li>Change account</li>
+        </Link>
         {/* <li>Logout</li> */}
       </ul>
     </div>

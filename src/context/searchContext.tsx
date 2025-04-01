@@ -15,13 +15,17 @@ interface ContextProps {
   setCurrentId: Dispatch<SetStateAction<undefinedString>>;
   currentRecepient: UserData | undefined;
   handleBalance: (user: UserData) => void;
+  handleCleanCurrent: () => void;
   balance: number | undefined;
+  timeleft: number;
+  setTimeleft: Dispatch<SetStateAction<number>>;
 }
 
 export const searchContext = createContext<ContextProps>({} as ContextProps);
 
 export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   const [searchQuery, setSearchQuery] = useState("");
+  const [timeleft, setTimeleft] = useState(10); // timer for automatic logout
   const [user, setUser] = useState(function () {
     const allUsers = localStorage.getItem("user");
 
@@ -64,6 +68,13 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
     }
   }
 
+  function handleCleanCurrent() {
+    const currentUser = users.find((user) => user.current === true);
+    currentUser!.current = false;
+
+    localStorage.setItem("user", JSON.stringify(users));
+  }
+
   return (
     <searchContext.Provider
       value={{
@@ -77,6 +88,9 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
         currentRecepient,
         handleBalance,
         balance,
+        handleCleanCurrent,
+        timeleft,
+        setTimeleft,
       }}
     >
       {children}

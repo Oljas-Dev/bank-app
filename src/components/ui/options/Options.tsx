@@ -9,7 +9,7 @@ import { searchContext } from "../../../context/searchContext";
 
 export default function Options() {
   const [path, setPath] = useState("");
-  const { loan, setLoan } = useCurrentUser();
+  const { setLoan } = useCurrentUser();
   const { balance } = useContext(searchContext);
 
   const iconsData = {
@@ -55,7 +55,6 @@ export default function Options() {
 
   function handleLoan() {
     setLoan(true);
-    console.log(loan);
   }
   return (
     <section className="options fl-btw">
