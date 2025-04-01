@@ -96,7 +96,7 @@ function SendTo() {
 function ButtonAndMessage() {
   const { onSend, onLoan, loan, user } = useCurrentUser();
   const { inputValid, sending } = useTransactions();
-  const { currentRecepient } = useContext(searchContext);
+  const { currentRecepient, setDelay } = useContext(searchContext);
 
   const navigate = useNavigate();
   const message = useRef<HTMLInputElement>(null);
@@ -135,6 +135,7 @@ function ButtonAndMessage() {
       currentRecepient?.transactions.push(receivingObj);
     }
 
+    setDelay(180);
     navigate("/home");
   }
 

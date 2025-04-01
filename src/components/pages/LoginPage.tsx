@@ -6,7 +6,7 @@ import { searchContext } from "../../context/searchContext";
 import { users } from "../../tempUserObjects/UserObjects";
 
 export default function LoginPage() {
-  const { setUser, handleBalance, setTimeleft } = useContext(searchContext);
+  const { setUser, handleBalance } = useContext(searchContext);
   const navigate = useNavigate();
 
   const email = useRef<HTMLInputElement>(null);
@@ -26,13 +26,14 @@ export default function LoginPage() {
     } else {
       setUser(checkUser);
       toast.success("Login successful!");
-      const newStoredUsers = users.find((user) => user.email === enteredEmail);
-      newStoredUsers!.current = true;
+      const currentStoredUser = users.find(
+        (user) => user.email === enteredEmail
+      );
+      currentStoredUser!.current = true;
 
       localStorage.setItem("user", JSON.stringify(users));
 
       handleBalance(checkUser);
-      setTimeleft(180); // Set the time left for logout (in seconds)
     }
 
     navigate("/home");

@@ -8,7 +8,6 @@ import {
 
 import { reactChildren } from "../types/children";
 import { Transactions, UserData } from "../types/interfaces";
-import user1Avatar from "../../public/users/user_1.png";
 import { searchContext } from "./searchContext";
 
 interface CurrentUserProps {
@@ -28,14 +27,12 @@ export function CurrentUser({ children }: reactChildren) {
   const { user: currentUser, handleBalance } = useContext(searchContext);
   const [loan, setLoan] = useState(false);
 
-  const user: UserData = currentUser || {
-    name: "Jerald Hitrow",
-    email: "jerald@test.com",
-    avatar: user1Avatar,
-    transactions: [],
-    id: "1001",
-    password: "1111",
-  };
+  if (currentUser === undefined) {
+    window.location.href = "/";
+    return null; // Prevents rendering the component if currentUser is undefined
+  }
+
+  const user: UserData = currentUser!;
 
   const firstName = typeof user.name === "string" && user?.name.split(" ")[0];
 

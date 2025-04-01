@@ -17,15 +17,14 @@ interface ContextProps {
   handleBalance: (user: UserData) => void;
   handleCleanCurrent: () => void;
   balance: number | undefined;
-  timeleft: number;
-  setTimeleft: Dispatch<SetStateAction<number>>;
+  delay: number;
+  setDelay: Dispatch<SetStateAction<number>>;
 }
 
 export const searchContext = createContext<ContextProps>({} as ContextProps);
 
 export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   const [searchQuery, setSearchQuery] = useState("");
-  const [timeleft, setTimeleft] = useState(10); // timer for automatic logout
   const [user, setUser] = useState(function () {
     const allUsers = localStorage.getItem("user");
 
@@ -34,6 +33,8 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
     return user;
   });
 
+  // const delay = useRef<number>(null);
+  const [delay, setDelay] = useState(180);
   const [currentId, setCurrentId] = useState<undefinedString>("");
   const [balance, setBalance] = useState(function () {
     const balanceCalc =
@@ -43,14 +44,16 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
     return balanceCalc;
   });
 
+  const filteredRecepient = users.filter((users) => users.current === false); // renders only recepients
+
   const searchedUsers =
     searchQuery.length > 0
-      ? users.filter(
+      ? filteredRecepient.filter(
           (user) =>
             typeof user.name === "string" &&
             user.name?.toLowerCase().includes(searchQuery.toLowerCase())
         )
-      : users;
+      : filteredRecepient;
 
   const currentRecepient = users.find((user) => user.id === currentId);
 
@@ -71,6 +74,7 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   function handleCleanCurrent() {
     const currentUser = users.find((user) => user.current === true);
     currentUser!.current = false;
+    setDelay(180);
 
     localStorage.setItem("user", JSON.stringify(users));
   }
@@ -89,8 +93,8 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
         handleBalance,
         balance,
         handleCleanCurrent,
-        timeleft,
-        setTimeleft,
+        delay,
+        setDelay,
       }}
     >
       {children}

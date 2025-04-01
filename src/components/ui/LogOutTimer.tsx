@@ -1,33 +1,34 @@
 import { useContext, useEffect } from "react";
-
 import { searchContext } from "../../context/searchContext";
 
+// import { searchContext } from "../../context/searchContext";
+
 export default function LogOutTimer() {
-  const { timeleft, setTimeleft } = useContext(searchContext);
-  // const timer = useRef(10);
-  const minutes = Math.floor(timeleft / 60);
-  const seconds = Math.floor(timeleft % 60);
+  const { delay, setDelay } = useContext(searchContext);
+  // const [delay, setDelay] = useState(180);
+
+  const minutes = String(Math.trunc(delay / 60)).padStart(2, "0");
+  const seconds = String(delay % 60).padStart(2, "0");
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeleft(timeleft - 1); // Decrease the time left by 1 second
-      console.log(timeleft); // Log the time left to the console
-
-      if (timeleft === 0) {
-        localStorage.removeItem("user"); // Remove user data from local storage
-        window.location.href = "/"; // Redirect to the home page
-        clearTimeout(timer);
-      }
-      // return () => clearInterval(timer); // Cleanup the interval on component unmount
+      setDelay(delay - 1);
     }, 1000);
-  }, [timeleft, setTimeleft]); // Run the effect when timeleft changes
+
+    if (delay <= 0) {
+      clearInterval(timer);
+      // localStorage.removeItem("user");
+      window.location.href = "/";
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [delay, setDelay]);
 
   return (
     <div className="timer txt-right">
-      You will be logged out in{" "}
-      <strong>
-        {timeleft > 60 ? `${minutes} : ${seconds}` : `${seconds}`}
-      </strong>
+      You will be logged out in <strong>{`${minutes} : ${seconds}`}</strong>
     </div>
   );
 }
