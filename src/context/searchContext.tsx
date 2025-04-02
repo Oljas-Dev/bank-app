@@ -34,7 +34,7 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   });
 
   // const delay = useRef<number>(null);
-  const [delay, setDelay] = useState(180);
+  const [delay, setDelay] = useState(360);
   const [currentId, setCurrentId] = useState<undefinedString>("");
   const [balance, setBalance] = useState(function () {
     const balanceCalc =
@@ -74,7 +74,7 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   function handleCleanCurrent() {
     const currentUser = users.find((user) => user.current === true);
     currentUser!.current = false;
-    setDelay(180);
+    setDelay(360);
 
     localStorage.setItem("user", JSON.stringify(users));
   }
