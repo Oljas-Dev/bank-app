@@ -1,8 +1,7 @@
 import { QueryClient, QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 
-const BASE_URL = "https://v1.apiplugin.io/v1/currency/LiSRxweZ/rates";
-// const eurLink = "source=EUR";
+import { BASE_URL } from "../helpers/variables";
 
 const apiInstance = axios.create({
   baseURL: BASE_URL,

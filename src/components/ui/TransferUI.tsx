@@ -20,6 +20,7 @@ import { Transactions } from "../../types/interfaces";
 import loanImg from "../../../public/users/loan.png";
 import { generateId } from "../../helpers/RandomId";
 import { currentDate } from "../../helpers/GetTime";
+import { logoutTime } from "../../helpers/variables";
 
 interface TransferProps {
   inputError: boolean;
@@ -135,7 +136,7 @@ function ButtonAndMessage() {
       currentRecepient?.transactions.push(receivingObj);
     }
 
-    setDelay(180);
+    setDelay(logoutTime);
     navigate("/home");
   }
 

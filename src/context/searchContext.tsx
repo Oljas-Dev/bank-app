@@ -2,6 +2,7 @@ import { createContext, Dispatch, JSX, SetStateAction, useState } from "react";
 import { reactChildren } from "../types/children";
 import { users } from "../tempUserObjects/UserObjects";
 import { Transactions, UserData } from "../types/interfaces";
+import { logoutTime } from "../helpers/variables";
 
 type undefinedString = string | undefined;
 
@@ -74,7 +75,7 @@ export function SearchUserProvider({ children }: reactChildren): JSX.Element {
   function handleCleanCurrent() {
     const currentUser = users.find((user) => user.current === true);
     currentUser!.current = false;
-    setDelay(360);
+    setDelay(logoutTime);
 
     localStorage.setItem("user", JSON.stringify(users));
   }

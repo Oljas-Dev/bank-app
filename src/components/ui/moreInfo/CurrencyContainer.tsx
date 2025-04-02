@@ -1,45 +1,23 @@
+import { useQuery } from "@tanstack/react-query";
 import CurrenciesInfo from "./CurrenciesInfo";
 import SingleCurrency from "./SingleCurrency";
 
 export default function CurrencyContainer() {
-  // async function getUSD() {
-  //   const response = await fetch(
-  //     "https://v1.apiplugin.io/v1/currency/LiSRxweZ/rates?source=EUR",
-  //     {
-  //       method: "get",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => data)
-  //     .catch((error) => console.error("Error fetching currencies:", error));
+  const {
+    data: eurRates,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["?source=EUR"],
+  });
 
-  //   currencies(response);
-  //   return currencies;
-  // }
+  if (isLoading) return <div>🔃</div>;
+  if (error) return <div>Error loading items</div>;
 
-  // let rates;
-
-  // const data = function () {
-  //   let test;
-  //   rates = test;
-
-  //   return function (data: string[]) {
-  //     rates = data.rates;
-  //     // console.log(rates.USD);
-
-  //     return rates;
-  //   };
-  // };
-
-  // const currencies = data();
-
-  // const usd = rates?.USD;
-
-  // console.log(usd);
-  // getUSD();
+  const usdRate = eurRates?.rates!.USD.toFixed(2);
+  const gbpRate = eurRates?.rates!.GBP.toFixed(2);
+  const usdBuy = (Number(eurRates?.rates!.USD) + 0.1).toFixed(2);
+  const gbpBuy = (Number(eurRates?.rates!.GBP) + 0.1).toFixed(2);
 
   return (
     <div className="info__currency fl-btw">
@@ -47,14 +25,14 @@ export default function CurrencyContainer() {
         <SingleCurrency
           symbol="$"
           currencyName="US Dollar"
-          currPrices="1.31 / 1.33"
+          currPrices={`${usdRate} / ${usdBuy}`}
         />
       </CurrenciesInfo>
       <CurrenciesInfo>
         <SingleCurrency
           symbol="£"
           currencyName="GB Pound"
-          currPrices="1.35 / 1.37"
+          currPrices={`${gbpRate} / ${gbpBuy}`}
         />
       </CurrenciesInfo>
     </div>
